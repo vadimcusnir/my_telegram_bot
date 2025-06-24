@@ -1,7 +1,6 @@
 import re
 import requests
-from telegram.ext import CommandHandler, MessageHandler, ConversationHandler, filters
-from telegram.ext import ContextTypes
+from telegram.ext import CommandHandler, MessageHandler, ConversationHandler, ContextTypes, filters
 
 EMAIL = range(1)
 

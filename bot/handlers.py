@@ -1,5 +1,5 @@
 from telegram.ext import CommandHandler, MessageHandler, ContextTypes, filters
-from .menu import keyboard
+from menu import keyboard
 
 async def start(update, context: ContextTypes.DEFAULT_TYPE):
     print("✅ /start activat de:", update.effective_user.username)

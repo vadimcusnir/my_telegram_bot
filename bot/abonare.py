@@ -17,7 +17,6 @@ async def procesare_email(update, context):
     email = update.message.text.strip()
     webhook_url = context.bot_data.get("MAKE_WEBHOOK_URL")
 
-
     print("📩 Email primit:", email)
     print("➡️ Trimit către webhook:", webhook_url)
 

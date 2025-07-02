@@ -1,21 +1,30 @@
 from telegram.ext import CommandHandler, MessageHandler, ContextTypes, filters
 from menu import keyboard
 
+
 async def start(update, context: ContextTypes.DEFAULT_TYPE):
     print("✅ /start activat de:", update.effective_user.username)
     await update.message.reply_text(
         "Salut, sunt botul oficial Vadim Cușnir.\nAlege o opțiune:",
-        reply_markup=keyboard
+        reply_markup=keyboard,
     )
 
+
 async def despre(update, context):
-    await update.message.reply_text("Sunt Vadim Cușnir – arhitect cognitiv, AI strategist și creator de sisteme educaționale.")
+    await update.message.reply_text(
+        "Sunt Vadim Cușnir – arhitect cognitiv, AI strategist și creator de sisteme educaționale."
+    )
+
 
 async def servicii(update, context):
-    await update.message.reply_text("Servicii: Mentorate, cursuri, AI strategy. Vezi https://stan.store/vadimcusnir")
+    await update.message.reply_text(
+        "Servicii: Mentorate, cursuri, AI strategy. Vezi https://stan.store/vadimcusnir"
+    )
+
 
 async def contact(update, context):
     await update.message.reply_text("Contact: vadim.kusnir@gmail.com sau @vadimcusnir")
+
 
 async def gpts(update, context):
     await update.message.reply_text(
@@ -31,7 +40,7 @@ async def gpts(update, context):
         "• [Meaning Architect](https://chatgpt.com/g/g-67556a497658819199b421c242ece94d-meaning-architect)\n"
         "• [Narrio – Scrie o Carte](https://chatgpt.com/g/g-67556fc755848191a69aa350fbef4f78-narrio-speak-write-publish)\n"
         "• [Story Gram – Insta Funnel](https://chatgpt.com/g/g-675573f5e6d881919f82fd433f99e100-story-gram-engage-inspire-convert)\n",
-        parse_mode="Markdown"
+        parse_mode="Markdown",
     )
 
 
@@ -44,4 +53,3 @@ def register_basic_handlers(app):
     app.add_handler(MessageHandler(filters.Regex("🎓 Servicii"), servicii))
     app.add_handler(MessageHandler(filters.Regex("📩 Contact"), contact))
     app.add_handler(MessageHandler(filters.Regex("🤖 Asistenți GPT"), gpts))
-

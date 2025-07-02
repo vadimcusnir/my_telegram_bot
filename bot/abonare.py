@@ -1,16 +1,27 @@
 import re
 import requests
-from telegram.ext import CommandHandler, MessageHandler, ConversationHandler, ContextTypes, filters
+from telegram.ext import (
+    CommandHandler,
+    MessageHandler,
+    ConversationHandler,
+    ContextTypes,
+    filters,
+)
 
 EMAIL = range(1)
+
 
 def is_valid_email(email):
     return re.match(r"^[\w\.-]+@[\w\.-]+\.\w{2,}$", email)
 
+
 async def abonare(update, context):
     print("🟣 /abonare activat de:", update.effective_user.username)
-    await update.message.reply_text("📩 Scrie adresa ta de email pentru a primi bonusul.")
+    await update.message.reply_text(
+        "📩 Scrie adresa ta de email pentru a primi bonusul."
+    )
     return EMAIL
+
 
 async def procesare_email(update, context):
     email = update.message.text.strip()
@@ -36,11 +47,14 @@ async def procesare_email(update, context):
 
     return ConversationHandler.END
 
+
 def register_abonare_handler(app, make_webhook_url):
     app.bot_data["MAKE_WEBHOOK_URL"] = make_webhook_url
     abonare_handler = ConversationHandler(
         entry_points=[CommandHandler("abonare", abonare)],
-        states={EMAIL: [MessageHandler(filters.TEXT & ~filters.COMMAND, procesare_email)]},
+        states={
+            EMAIL: [MessageHandler(filters.TEXT & ~filters.COMMAND, procesare_email)]
+        },
         fallbacks=[],
     )
     app.add_handler(abonare_handler)

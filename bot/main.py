@@ -23,10 +23,7 @@ if __name__ == "__main__":
         await app.initialize()
         await app.start()
         await app.updater.start_webhook(
-            listen="0.0.0.0",
-            port=8000,
-            url_path="/webhook",
-            webhook_url=WEBHOOK_URL
+            listen="0.0.0.0", port=8000, url_path="/webhook", webhook_url=WEBHOOK_URL
         )
         print("🌐 Webhook activ. Railway blocat.")
         await asyncio.Event().wait()

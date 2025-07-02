@@ -12,7 +12,7 @@ from telegram.ext import (
     MessageHandler,
     ConversationHandler,
     ContextTypes,
-    filters
+    filters,
 )
 
 # 🔐 Încarcă variabilele din .env
@@ -24,38 +24,52 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 logging.basicConfig(level=logging.INFO)
 
 # 🎛 Tastatură principală
-keyboard = ReplyKeyboardMarkup([
-    ["🔍 Despre Vadim", "🎓 Servicii"],
-    ["🤖 GPT Tool", "📩 Contact"]
-], resize_keyboard=True)
+keyboard = ReplyKeyboardMarkup(
+    [["🔍 Despre Vadim", "🎓 Servicii"], ["🤖 GPT Tool", "📩 Contact"]],
+    resize_keyboard=True,
+)
+
 
 # ✅ Comenzi simple
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print("✅ /start activat de:", update.effective_user.username)
     await update.message.reply_text(
         "Salut, sunt botul oficial Vadim Cușnir.\nAlege o opțiune:",
-        reply_markup=keyboard
+        reply_markup=keyboard,
     )
 
+
 async def despre(update, context):
-    await update.message.reply_text("Sunt Vadim Cușnir – arhitect cognitiv, AI strategist și creator de sisteme educaționale.")
+    await update.message.reply_text(
+        "Sunt Vadim Cușnir – arhitect cognitiv, AI strategist și creator de sisteme educaționale."
+    )
+
 
 async def servicii(update, context):
-    await update.message.reply_text("Servicii: Mentorate, cursuri, AI strategy. Vezi https://stan.store/vadimcusnir")
+    await update.message.reply_text(
+        "Servicii: Mentorate, cursuri, AI strategy. Vezi https://stan.store/vadimcusnir"
+    )
+
 
 async def contact(update, context):
     await update.message.reply_text("Contact: vadim.kusnir@gmail.com sau @vadimcusnir")
 
+
 # 📩 Abonare
 EMAIL = range(1)
+
 
 def is_valid_email(email):
     return re.match(r"^[\w\.-]+@[\w\.-]+\.\w{2,}$", email)
 
+
 async def abonare(update, context):
     print("🟣 /abonare activat de:", update.effective_user.username)
-    await update.message.reply_text("📩 Scrie adresa ta de email pentru a primi bonusul.")
+    await update.message.reply_text(
+        "📩 Scrie adresa ta de email pentru a primi bonusul."
+    )
     return EMAIL
+
 
 async def procesare_email(update, context):
     email = update.message.text.strip()
@@ -78,6 +92,7 @@ async def procesare_email(update, context):
         await update.message.reply_text("⚠️ Eroare de conexiune.")
 
     return ConversationHandler.END
+
 
 # 🔧 Inițializare aplicație
 app = ApplicationBuilder().token(TOKEN).build()
@@ -102,11 +117,7 @@ app.add_handler(abonare_handler)
 if __name__ == "__main__":
     print("🚀 Pornit în mod WEBHOOK")
 
-    app.run_webhook(
-        listen="0.0.0.0",
-        port=8000,
-        webhook_url=WEBHOOK_URL
-    )
+    app.run_webhook(listen="0.0.0.0", port=8000, webhook_url=WEBHOOK_URL)
 
     print("🌐 Webhook activ. Blocare infinită Railway via threading.Event().wait()")
     Event().wait()

@@ -2,7 +2,6 @@ import os
 import re
 import logging
 import requests
-from time import sleep
 from threading import Event
 from dotenv import load_dotenv
 from telegram import Update, ReplyKeyboardMarkup
